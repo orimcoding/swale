@@ -1,0 +1,37 @@
+version: "2"
+
+reviews:
+  auto_review:
+    enabled: true
+    drafts: false
+
+  profile: chill
+
+  path_instructions:
+    - path: "app/api/**"
+      instructions: |
+        Check that all external API calls go through the wrappers in lib/ and are not called directly.
+        Verify that responses are cached via Upstash Redis before returning.
+        Flag any hardcoded API keys or secrets.
+    - path: "lib/openai/**"
+      instructions: |
+        Review prompts for clarity and token efficiency.
+        Make sure user-controlled input is never interpolated directly into prompts without sanitization.
+    - path: "supabase/migrations/**"
+      instructions: |
+        Review SQL for missing indexes on foreign keys and frequently queried columns.
+        Check that RLS policies are present on all new tables.
+    - path: "scripts/**"
+      instructions: |
+        These are data sync scripts. Verify rate limits are respected for external APIs.
+        Make sure errors are caught and logged, not silently swallowed.
+    - path: "**/*.test.ts"
+      instructions: |
+        Check test coverage is meaningful, not just hitting happy paths.
+
+  finishing_touches:
+    docstrings:
+      enabled: true
+
+chat:
+  auto_reply: true
