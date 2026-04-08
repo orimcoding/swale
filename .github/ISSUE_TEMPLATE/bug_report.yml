@@ -1,0 +1,44 @@
+name: Bug report
+description: Something is broken
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: Thanks for taking the time to report a bug. Fill this out completely — vague reports will be closed.
+
+  - type: textarea
+    id: description
+    attributes:
+      label: What happened?
+      description: What did you expect to happen, and what actually happened?
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: Exact steps to trigger the bug.
+      placeholder: |
+        1. Go to ...
+        2. Click ...
+        3. See error
+    validations:
+      required: true
+
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      placeholder: |
+        - OS: macOS 15
+        - Node: 20.x
+        - Browser: Chrome 124
+    validations:
+      required: true
+
+  - type: textarea
+    id: extras
+    attributes:
+      label: Logs or screenshots
+      description: Paste any relevant console errors or attach a screenshot.
