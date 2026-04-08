@@ -1,0 +1,25 @@
+## What does this PR do?
+
+<!-- One or two sentences. What problem does it solve or what does it add? -->
+
+## Type of change
+
+- [ ] Feature
+- [ ] Bug fix
+- [ ] Chore / refactor
+- [ ] Docs
+
+## How to test
+
+<!-- Steps for a reviewer to verify your changes work correctly. -->
+
+1. 
+2. 
+
+## Checklist
+
+- [ ] `npm run lint` passes locally
+- [ ] `npm run typecheck` passes locally
+- [ ] I've addressed all CodeRabbit comments
+- [ ] New environment variables are added to `.env.example`
+- [ ] No API keys or secrets are committed
