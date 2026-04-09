@@ -5,7 +5,7 @@
 [![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](LICENSE)
 [![Next.js](https://img.shields.io/badge/Next.js-15-black)](https://nextjs.org)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5-blue)](https://typescriptlang.org)
-[![CI](https://github.com/YOUR_USERNAME/swale/actions/workflows/ci.yml/badge.svg)](https://github.com/YOUR_USERNAME/swale/actions/workflows/ci.yml)
+[![CI](https://github.com/orimcoding/swale/actions/workflows/ci.yml/badge.svg)](https://github.com/YOUR_USERNAME/swale/actions/workflows/ci.yml)
 [![CodeRabbit](https://img.shields.io/coderabbit/prs/github/YOUR_USERNAME/swale)](https://coderabbit.ai)
 
 ---
