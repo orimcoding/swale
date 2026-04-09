@@ -1,25 +1,29 @@
-## What does this PR do?
+# Pull Request
 
-<!-- One or two sentences. What problem does it solve or what does it add? -->
+## Description
 
-## Type of change
+<!-- Provide a clear and concise description of your changes -->
 
-- [ ] Feature
-- [ ] Bug fix
-- [ ] Chore / refactor
-- [ ] Docs
+## Type of Change
 
-## How to test
+<!-- Mark the relevant option with an 'x' -->
 
-<!-- Steps for a reviewer to verify your changes work correctly. -->
+- [ ] Bug fix (non-breaking change which fixes an issue)
+- [ ] New feature (non-breaking change which adds functionality)
+- [ ] Breaking change (fix or feature that would cause existing functionality to not work as expected)
+- [ ] Documentation update
+- [ ] Refactoring (no functional changes)
+- [ ] Performance improvement
+- [ ] Other (please describe):
 
-1. 
-2. 
+## Related Issues
 
-## Checklist
+<!-- Link any related issues here (e.g., Closes #123) -->
 
-- [ ] `npm run lint` passes locally
-- [ ] `npm run typecheck` passes locally
-- [ ] I've addressed all CodeRabbit comments
-- [ ] New environment variables are added to `.env.example`
-- [ ] No API keys or secrets are committed
+## Screenshots (If it is a front end feature screenshot is reccomended)
+
+<!-- If applicable, add screenshots to help explain your changes -->
+
+## Additional Notes
+
+<!-- Any additional information that reviewers should know -->
