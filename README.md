@@ -155,9 +155,7 @@ swale/
 
 ## Contributing
 
-Contributions are welcome. Please read [CONTRIBUTING.md](CONTRIBUTING.md) before opening a pull request.
-
-All PRs are automatically reviewed by CodeRabbit. CI must pass before merging. Branch naming: `feature/`, `fix/`, `chore/`.
+Please read [CONTRIBUTING.md](CONTRIBUTING.md) before opening an issue.
 
 ---
 
