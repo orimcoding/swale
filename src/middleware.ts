@@ -24,7 +24,11 @@ export async function middleware(request: NextRequest) {
   );
 
   // Check session
-  await supabase.auth.getUser();
+  try {
+    await supabase.auth.getUser();
+  } catch {
+    return supabaseResponse;
+  }
 
   return supabaseResponse;
 }
