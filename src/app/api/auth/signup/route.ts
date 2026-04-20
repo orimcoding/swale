@@ -39,9 +39,16 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Validate email format
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
+    // Validate email format - simple check, Supabase will do deeper validation
+    const trimmedEmail = email.trim();
+    if (!trimmedEmail.includes("@") || !trimmedEmail.includes(".")) {
+      return NextResponse.json(
+        { error: "Invalid email format" },
+        { status: 400 }
+      );
+    }
+    const [localPart, domain] = trimmedEmail.split("@");
+    if (!localPart || !domain || localPart.length === 0 || domain.length < 3) {
       return NextResponse.json(
         { error: "Invalid email format" },
         { status: 400 }
