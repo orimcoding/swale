@@ -1,20 +1,17 @@
 "use client";
 
 import { createClient } from "@/lib/supabase/client";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import type { Session } from "@supabase/supabase-js";
 
 export function useAuth() {
   const [session, setSession] = useState<Session | null>(null);
   const [loading, setLoading] = useState(true);
-  const supabase = createClient();
+  const supabase = useMemo(() => createClient(), []);
 
   useEffect(() => {
     // Check active sessions and sets the user
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setSession(session);
-      setLoading(false);
-    });
+    supabase.auth.getSession().then(({ data: { session } }) => setSession(session)).finally(() => setLoading(false));
 
     // Listen for changes on auth state (logged in, signed out, etc.)
     const {
@@ -24,7 +21,7 @@ export function useAuth() {
     });
 
     return () => subscription?.unsubscribe();
-  }, [supabase.auth]);
+  }, [supabase]);
 
   return { session, loading };
 }
