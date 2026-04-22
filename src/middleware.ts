@@ -6,17 +6,9 @@ export async function middleware(request: NextRequest) {
     request,
   });
 
-  // Skip middleware if Supabase env vars are not configured (dev without setup)
-  if (
-    !process.env.NEXT_PUBLIC_SUPABASE_URL ||
-    !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
-  ) {
-    return supabaseResponse;
-  }
-
   const supabase = createServerClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
     {
       cookies: {
         getAll() {
@@ -31,34 +23,11 @@ export async function middleware(request: NextRequest) {
     }
   );
 
-  // Check session and refresh if needed
-  let user = null;
+  // Check session
   try {
-    const {
-      data: { user: authUser },
-    } = await supabase.auth.getUser();
-    user = authUser;
+    await supabase.auth.getUser();
   } catch {
-    // User is not authenticated
-  }
-
-  // Protect dashboard routes
-  if (request.nextUrl.pathname.startsWith("/dashboard")) {
-    if (!user) {
-      // Redirect to login if trying to access protected route
-      return NextResponse.redirect(new URL("/", request.url));
-    }
-  }
-
-  // Redirect authenticated users away from auth pages
-  if (
-    request.nextUrl.pathname === "/" ||
-    request.nextUrl.pathname.startsWith("/auth/")
-  ) {
-    if (user) {
-      // Redirect to dashboard if already authenticated
-      return NextResponse.redirect(new URL("/dashboard", request.url));
-    }
+    return supabaseResponse;
   }
 
   return supabaseResponse;
@@ -76,4 +45,3 @@ export const config = {
     "/((?!_next/static|_next/image|favicon.ico|.*\\.svg).*)",
   ],
 };
-
