@@ -1,24 +1,39 @@
-import { redirect } from 'next/navigation';
-import { createServerSupabaseClient } from '@/lib/supabase/server';
+'use client';
+
+import { useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+import { useAuth } from '@/lib/hooks/useAuth';
 import { LoginPageUI } from '@/components/auth/LoginPageUI';
 
-export default async function Home() {
-  const supabase = await createServerSupabaseClient();
+export default function Home() {
+  const router = useRouter();
+  const { session, loading } = useAuth();
 
-  try {
-    const {
-      data: { user },
-    } = await supabase.auth.getUser();
-
-    // If user is logged in, redirect to dashboard
-    if (user) {
-      redirect('/dashboard');
+  useEffect(() => {
+    if (!loading && session) {
+      router.push('/dashboard');
     }
-  } catch {
-    // If error getting user, fall through to show login
+  }, [session, loading, router]);
+
+  // Show loading or login based on auth state
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-black">
+        <div className="text-zinc-400">Loading...</div>
+      </div>
+    );
   }
 
-  // Show login page if not authenticated
-  return <LoginPageUI />;
+  // Show login if not authenticated
+  if (!session) {
+    return <LoginPageUI />;
+  }
+
+  // If we have a session but haven't redirected yet, show loading
+  return (
+    <div className="min-h-screen flex items-center justify-center bg-black">
+      <div className="text-zinc-400">Redirecting...</div>
+    </div>
+  );
 }
 
