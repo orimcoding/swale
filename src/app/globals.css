@@ -1,26 +1,136 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+  /* Primary Colors */
+  --primary: #00ff87;
+  --primary-dark: #00d966;
+  --primary-light: #33ff99;
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+  /* Background Shades */
+  --background: #0d0d0d;
+  --background-secondary: #1a1a1a;
+  --background-tertiary: #262626;
+
+  /* Foreground / Text */
+  --foreground: #f5f5f5;
+  --foreground-secondary: #b0b0b0;
+  --foreground-tertiary: #808080;
+
+  /* Accent Colors */
+  --accent: #00ff87;
+  --accent-red: #ff4444;
+  --accent-yellow: #ffd700;
+  --accent-green: #00ff87;
+
+  /* Borders & Dividers */
+  --border: #333333;
+  --border-light: #404040;
+
+  /* Semantic Colors */
+  --success: #00ff87;
+  --warning: #ffd700;
+  --error: #ff4444;
+  --info: #3d00ff;
+
+  /* Fonts */
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
+@media (prefers-color-scheme: light) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #ffffff;
+    --background-secondary: #f9f9f9;
+    --background-tertiary: #f0f0f0;
+    --foreground: #0d0d0d;
+    --foreground-secondary: #4d4d4d;
+    --foreground-tertiary: #7f7f7f;
+    --border: #e0e0e0;
+    --border-light: #d0d0d0;
   }
 }
 
+/* Dark mode is default */
+html {
+  color-scheme: dark;
+}
+
 body {
-  background: var(--background);
+  background-color: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--background-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border-light);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--foreground-secondary);
+}
+
+/* Selection */
+::selection {
+  background-color: var(--primary);
+  color: var(--background);
+}
+
+/* Focus visible for accessibility */
+:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Link defaults */
+a {
+  color: var(--primary);
+  text-decoration: none;
+  transition: color 200ms ease;
+}
+
+a:hover {
+  color: var(--primary-light);
+}
+
+/* Utility classes for common patterns */
+.live-pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.live-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  background-color: var(--accent-green);
+  border-radius: 50%;
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
