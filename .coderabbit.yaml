@@ -8,30 +8,62 @@ reviews:
   profile: chill
 
   path_instructions:
-    - path: "app/api/**"
+    - path: "src/app/api/**"
       instructions: |
         Check that all external API calls go through the wrappers in lib/ and are not called directly.
         Verify that responses are cached via Upstash Redis before returning.
         Flag any hardcoded API keys or secrets.
+        Ensure proper error handling with appropriate HTTP status codes.
+        Check for rate limiting and timeout handling.
+
+    - path: "src/components/**"
+      instructions: |
+        Verify React components follow Swale conventions:
+        - Use 'use client' only when necessary (interactive state, hooks)
+        - Prefer Server Components by default (Next.js 15 App Router)
+        - All props must be strongly typed with TypeScript interfaces
+        - No 'any' types allowed
+        - Check for proper responsive design (Tailwind mobile-first)
+        - Verify accessibility (alt text, aria labels, keyboard navigation)
+        - Components should be composable and reusable
+        - Use shadcn/ui components where applicable
+
     - path: "lib/openai/**"
       instructions: |
         Review prompts for clarity and token efficiency.
         Make sure user-controlled input is never interpolated directly into prompts without sanitization.
+        Check that streaming is properly handled if applicable.
+        Verify error handling for API failures and timeouts.
+
+    - path: "src/lib/**"
+      instructions: |
+        Utility functions should be pure (no side effects).
+        All functions must have TypeScript types (no 'any').
+        Include JSDoc comments for non-obvious functions.
+        Ensure cache keys are properly namespaced.
+
+    - path: "src/types/**"
+      instructions: |
+        Types should be comprehensive and well-documented.
+        Use enums for fixed sets of values.
+        Avoid optional fields when possible (make explicit with unions).
+        Check for circular dependencies between types.
+
     - path: "supabase/migrations/**"
       instructions: |
         Review SQL for missing indexes on foreign keys and frequently queried columns.
         Check that RLS policies are present on all new tables.
-    - path: "scripts/**"
-      instructions: |
-        These are data sync scripts. Verify rate limits are respected for external APIs.
-        Make sure errors are caught and logged, not silently swallowed.
+        Verify naming conventions follow project standards.
+
     - path: "**/*.test.ts"
       instructions: |
         Check test coverage is meaningful, not just hitting happy paths.
+        Verify both success and error cases are tested.
 
   finishing_touches:
     docstrings:
       enabled: true
+    improve_code_quality: true
 
 chat:
   auto_reply: true
