@@ -1,6 +1,5 @@
-/**
- * Placeholder - will be replaced in Phase 2
- */
+import { DashboardShell } from "@/components/layout/dashboard-shell";
+
 export default function DashboardPage() {
-  return <div>Placeholder</div>;
+  return <DashboardShell />;
 }
