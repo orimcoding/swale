@@ -1,3 +1,4 @@
+import { validateAuthCredentials } from "@/lib/auth/validation";
 import { createServerSupabaseClient } from "@/lib/supabase/server";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -10,28 +11,20 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "Invalid JSON body" }, { status: 400 });
     }
 
-    const { email, password } = body as {
-      email?: unknown;
-      password?: unknown;
-    };
-    if (
-      typeof email !== "string" ||
-      typeof password !== "string" ||
-      !email ||
-      !password
-    ) {
+    const validation = validateAuthCredentials(body);
+
+    if (!validation.success || !validation.credentials) {
       return NextResponse.json(
-        { error: "Email and password are required" },
+        { error: validation.error ?? "Invalid credentials" },
         { status: 400 }
       );
     }
 
     const supabase = await createServerSupabaseClient();
 
-    const { data, error } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    });
+    const { data, error } = await supabase.auth.signInWithPassword(
+      validation.credentials
+    );
 
     if (error) {
       return NextResponse.json({ error: error.message }, { status: 400 });
