@@ -6,14 +6,16 @@ import { useState } from "react";
 import { AuthForm } from "@/components/auth/auth-form";
 import { AuthShell } from "@/components/auth/auth-shell";
 
-export default function LegacyAuthLoginPage() {
+export default function SignupPage() {
   const router = useRouter();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [success, setSuccess] = useState<string | null>(null);
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setError(null);
+    setSuccess(null);
     setIsSubmitting(true);
 
     const formData = new FormData(event.currentTarget);
@@ -21,7 +23,7 @@ export default function LegacyAuthLoginPage() {
     const password = formData.get("password");
 
     try {
-      const response = await fetch("/api/auth/login", {
+      const response = await fetch("/api/auth/signup", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -29,15 +31,23 @@ export default function LegacyAuthLoginPage() {
         body: JSON.stringify({ email, password }),
       });
 
-      const result = (await response.json()) as { error?: string };
+      const result = (await response.json()) as {
+        error?: string;
+      };
 
       if (!response.ok) {
-        setError(result.error ?? "Unable to sign in");
+        setError(result.error ?? "Unable to create account");
         return;
       }
 
-      router.push("/dashboard");
-      router.refresh();
+      setSuccess(
+        "Account created. You can now sign in with your email and password."
+      );
+
+      setTimeout(() => {
+        router.push("/login");
+        router.refresh();
+      }, 1200);
     } catch {
       setError("Something went wrong. Please try again.");
     } finally {
@@ -47,26 +57,24 @@ export default function LegacyAuthLoginPage() {
 
   return (
     <AuthShell
-      title="Welcome back."
-      subtitle="Sign in to open your football workspace, follow live matchdays, and pick up where you left off."
+      title="Create your account."
+      subtitle="Start building your football workspace with live scores, player intelligence, and competition context in one place."
       footer={
         <>
-          New to Swale?{" "}
-          <Link
-            href="/auth/signup"
-            className="font-medium text-blue-700 hover:text-blue-800"
-          >
-            Create an account
+          Already have an account?{" "}
+          <Link href="/login" className="font-medium text-blue-700 hover:text-blue-800">
+            Sign in
           </Link>
         </>
       }
     >
       <AuthForm
-        mode="login"
-        submitLabel={isSubmitting ? "Signing in..." : "Sign in"}
-        helperText="Use your email and password to access your live dashboard, saved context, and player tracking workspace."
+        mode="signup"
+        submitLabel={isSubmitting ? "Creating account..." : "Create account"}
+        helperText="Create your account to unlock live matchday views, player dossiers, and competition tracking across club and international football."
         isSubmitting={isSubmitting}
         error={error}
+        success={success}
         onSubmit={handleSubmit}
       />
     </AuthShell>

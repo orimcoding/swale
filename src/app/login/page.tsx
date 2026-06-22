@@ -6,7 +6,7 @@ import { useState } from "react";
 import { AuthForm } from "@/components/auth/auth-form";
 import { AuthShell } from "@/components/auth/auth-shell";
 
-export default function LegacyAuthLoginPage() {
+export default function LoginPage() {
   const router = useRouter();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -52,10 +52,7 @@ export default function LegacyAuthLoginPage() {
       footer={
         <>
           New to Swale?{" "}
-          <Link
-            href="/auth/signup"
-            className="font-medium text-blue-700 hover:text-blue-800"
-          >
+          <Link href="/signup" className="font-medium text-blue-700 hover:text-blue-800">
             Create an account
           </Link>
         </>
