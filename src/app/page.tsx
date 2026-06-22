@@ -144,7 +144,7 @@ export default function Home() {
 
           <div className="flex items-center gap-2">
             <Link
-              href="/auth/login"
+              href="/login"
               className="rounded-full bg-[linear-gradient(135deg,#1d4ed8,#38bdf8)] px-5 py-2.5 text-sm font-medium text-white shadow-[0_14px_30px_rgba(37,99,235,0.24)] transition hover:-translate-y-0.5"
             >
               Log in / Sign up
@@ -484,7 +484,7 @@ export default function Home() {
                       <ArrowRight className="h-4 w-4" />
                     </Link>
                     <Link
-                      href="/auth/login"
+                      href="/login"
                       className="inline-flex items-center gap-2 rounded-full bg-[linear-gradient(135deg,#1d4ed8,#38bdf8)] px-5 py-3 text-sm font-medium text-white shadow-[0_18px_40px_rgba(37,99,235,0.24)] transition hover:-translate-y-0.5"
                     >
                       <LockKeyhole className="h-4 w-4" />
