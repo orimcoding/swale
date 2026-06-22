@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { AuthForm } from "@/components/auth/auth-form";
 import { AuthShell } from "@/components/auth/auth-shell";
 
 export default function LoginPage() {
@@ -15,15 +16,11 @@ export default function LoginPage() {
         </>
       }
     >
-      <div>
-        <p className="text-xs uppercase tracking-[0.28em] text-blue-700">Login</p>
-        <h2 className="mt-3 text-3xl font-semibold tracking-tight text-slate-900">
-          Sign in to continue.
-        </h2>
-        <p className="mt-3 text-base leading-7 text-slate-600">
-          Your login form will live here in the next commit.
-        </p>
-      </div>
+      <AuthForm
+        mode="login"
+        submitLabel="Sign in"
+        helperText="Use your email and password to access your live dashboard, saved context, and player tracking workspace."
+      />
     </AuthShell>
   );
 }

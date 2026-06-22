@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { AuthForm } from "@/components/auth/auth-form";
 import { AuthShell } from "@/components/auth/auth-shell";
 
 export default function SignupPage() {
@@ -15,15 +16,11 @@ export default function SignupPage() {
         </>
       }
     >
-      <div>
-        <p className="text-xs uppercase tracking-[0.28em] text-blue-700">Sign up</p>
-        <h2 className="mt-3 text-3xl font-semibold tracking-tight text-slate-900">
-          Create your access.
-        </h2>
-        <p className="mt-3 text-base leading-7 text-slate-600">
-          Your signup form will live here in the next commit.
-        </p>
-      </div>
+      <AuthForm
+        mode="signup"
+        submitLabel="Create account"
+        helperText="Create your account to unlock live matchday views, player dossiers, and competition tracking across club and international football."
+      />
     </AuthShell>
   );
 }
