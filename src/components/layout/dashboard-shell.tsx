@@ -18,6 +18,8 @@ import {
   Users,
   Waves,
 } from "lucide-react";
+import { LogoutButton } from "@/components/auth/logout-button";
+import { useAuth } from "@/lib/hooks/useAuth";
 
 const navItems = [
   { label: "Overview", href: "/dashboard", icon: LayoutGrid },
@@ -122,6 +124,8 @@ function PlayerOrb({ initials }: { initials: string }) {
 }
 
 export function DashboardShell() {
+  const { user } = useAuth();
+
   return (
     <div className="relative min-h-screen overflow-hidden bg-[var(--background)] text-[var(--foreground)]">
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(96,165,250,0.22),transparent_34%),radial-gradient(circle_at_80%_20%,rgba(191,219,254,0.12),transparent_24%),linear-gradient(180deg,rgba(255,255,255,0.03),transparent_30%)]" />
@@ -203,6 +207,12 @@ export function DashboardShell() {
                   <span className="live-dot" />
                   12 matches active
                 </div>
+                {user?.email ? (
+                  <div className="flex items-center gap-2 rounded-full border border-white/10 bg-white/6 px-4 py-2 text-sm text-[var(--foreground-secondary)]">
+                    Signed in as {user.email}
+                  </div>
+                ) : null}
+                <LogoutButton />
               </div>
             </div>
           </div>

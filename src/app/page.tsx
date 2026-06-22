@@ -11,6 +11,7 @@ import {
   Sparkles,
   Waves,
 } from "lucide-react";
+import { useAuth } from "@/lib/hooks/useAuth";
 
 const floatingNav = [
   { label: "Home", href: "/" },
@@ -97,11 +98,15 @@ function FloatingOrb({ className }: { className: string }) {
 
 export default function Home() {
   const { scrollYProgress } = useScroll();
+  const { isAuthenticated, loading } = useAuth();
   const heroY = useTransform(scrollYProgress, [0, 0.2], [0, 80]);
   const heroOpacity = useTransform(scrollYProgress, [0, 0.18], [1, 0.72]);
   const terminalY = useTransform(scrollYProgress, [0.08, 0.35], [80, -20]);
   const terminalRotate = useTransform(scrollYProgress, [0.08, 0.35], [2.5, 0]);
   const previewY = useTransform(scrollYProgress, [0.2, 0.5], [120, 0]);
+
+  const primaryHref = !loading && isAuthenticated ? "/dashboard" : "/login";
+  const primaryLabel = !loading && isAuthenticated ? "Open dashboard" : "Log in / Sign up";
 
   return (
     <main className="relative overflow-hidden">
@@ -144,10 +149,10 @@ export default function Home() {
 
           <div className="flex items-center gap-2">
             <Link
-              href="/login"
+              href={primaryHref}
               className="rounded-full bg-[linear-gradient(135deg,#1d4ed8,#38bdf8)] px-5 py-2.5 text-sm font-medium text-white shadow-[0_14px_30px_rgba(37,99,235,0.24)] transition hover:-translate-y-0.5"
             >
-              Log in / Sign up
+              {primaryLabel}
             </Link>
           </div>
         </header>
